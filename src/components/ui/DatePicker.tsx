@@ -1,25 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { format } from "date-fns"
+import { useState, useEffect } from "react"
 import { Calendar as CalendarIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 
 export function DatePicker() {
   const [date, setDate] = useState<Date>()
 
   useEffect(() => {
     /*
-      set a cookie or long term local storage
-      transform the time since using modern lib
+      set long term local storage for date selected
+      transform the time since by timezone
       display time since
       ....profit?
     */
