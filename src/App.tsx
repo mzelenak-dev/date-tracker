@@ -1,7 +1,14 @@
-import './App.css'
+import { PropsWithChildren } from 'react';
+import { ThemeProvider } from "@/components/ui/theme-provider"
+import Header from './components/ui/Header';
 
-function App() {
-  return "Hello World!"
+function App({children}: PropsWithChildren) {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Header />
+      {children}
+    </ThemeProvider>
+  )
 }
 
 export default App
