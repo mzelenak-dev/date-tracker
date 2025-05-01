@@ -1,8 +1,10 @@
+import Header from "./Header";
+import Footer from "./Footer";
 import { useState } from "react";
-// import DateList from './DateList';
 import { SelectedDate } from '@/types';
 import { DatePicker } from './DatePicker';
 import DateVisualizer from './DateVisualizer';
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DateListVisualizer from "./DateListVisualizer";
@@ -21,7 +23,7 @@ const DateTracker = () => {
       title: selectedDateTitle || undefined,
     };
 
-    setDateList((prevItems: SelectedDate[]) => { return [...prevItems, newDateItem] })
+    setDateList(prevItems => [...prevItems, newDateItem])
   };
 
   const nameInputChangedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,32 +33,42 @@ const DateTracker = () => {
   }
   
   return (
-    <div className="relative h-screen">
-      <section className='flex flex-col p-5'>
+    <div className="max-w-[720px] m-auto flex flex-col justify-between h-screen">
+      <Header />
+      <section className='relative p-5 mx-auto'>
         {!selectedDate ? 
           <DatePicker setDateHandler={setSelectedDate} />:
           <DateVisualizer selected={selectedDate} />
         }
         { selectedDate && 
-          <div className="flex flex-col m-auto">
-            <Input
-              required
-              type='text'
-              className='mt-10 w-md'
-              onChange={nameInputChangedHandler}
-              placeholder='Enter a name (optional)'
-            />
+          <div>
+            <div className="flex flex-col mt-5">
+              <Label htmlFor="name">
+                <span className="text-red-500 text-lg -mr-1">*</span>Date Name
+              </Label>
+              <Input
+                required
+                id="date-name"
+                name="date-name"
+                type='text'
+                className='mt-2 w-md'
+                onChange={nameInputChangedHandler}
+                placeholder='Enter a name'
+              />
+            </div>
             <Button
               type='submit'
-              className='mt-2 w-md'
+              className='mt-2 w-md disabled:opacity-75 hover:disabled:cursor-not-allowed'
               onClick={buttonClickedHandler}
-            >{selectedDateTitle ? 'Update Name' : 'Save Date'}</Button>
+              disabled={selectedDateTitle.length < 1}
+            >Save Date</Button>
           </div>
         }
       </section>
       <section className="absolute bottom-0 w-full">
         {dateList.length > 0 && <DateListVisualizer dateList={dateList} />}
       </section>
+      <Footer />
     </div>
   )
 }
