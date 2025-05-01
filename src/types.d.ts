@@ -1,7 +1,7 @@
 export interface SelectedDate {
   id: number;
   date: Date;
-  title: string;
+  title?: string;
 }
 
 export interface DatePickerProps {
